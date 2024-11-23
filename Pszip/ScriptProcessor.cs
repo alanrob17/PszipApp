@@ -16,10 +16,11 @@ namespace Pszip
 
             sw.WriteLine("$ZipFilesAndFolders = @{");
 
-            foreach (var file in fileList)
+            var formattedEntries = fileList.Select(file => $"\t'{file}' = '{Path.GetFileNameWithoutExtension(file)}'");
+
+            foreach (var entry in formattedEntries)
             {
-                var folder = Path.GetFileNameWithoutExtension(file);
-                sw.WriteLine($"\t'{file}' = '{folder}'");
+                sw.WriteLine(entry);
             }
 
             sw.WriteLine("}");
